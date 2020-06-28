@@ -51,39 +51,57 @@ const pageObj = {
     {
       classSelector: "message-1",
       animationFrameRange: [0.1, 0.2],
-      style: { opacity: [0, 1], translateY: [0.1, 0.2] },
+      style: { opacity: [0, 1], translateY: [0, 20] },
     },
     {
       classSelector: "message-2",
       animationFrameRange: [0.3, 0.4],
-      style: { opacity: [0, 1], translateY: [0, 1] },
+      style: { opacity: [0, 1], translateY: [0, 20] },
     },
   ],
 };
 function playAnimation() {
   // 값의 범위와 애니메이션 구간을 혼동하지 말것!
   // 값의 변화와 구간의 변화를 나눠서 구해야해.
-  const scrollRatio = currentYOffset / pageHeight; // 값의 범위
+  const scrollRatio = currentYOffset / pageHeight; // 전체페이지를 기준으로 스크롤 비율
 
   const targets = pageObj[currentPageId] || [];
   for (const { classSelector, animationFrameRange, style } of targets) {
+    const element = document.querySelector(
+      `#show-page-${currentPageId} .${classSelector}`
+    );
+    if (!element) return;
+
     // 애니메이션 구간의 시작과 끝 구하기
     const [start, end] = animationFrameRange;
     const startY = start * pageHeight;
     const endY = end * pageHeight;
     const rangeY = endY - startY;
+    const middleY = startY + rangeY / 2;
 
-    let opacityValueByRangeY = 0;
+    // 애니메이션 시작부터의 종료까지 구간을 기준으로 스크롤 비율
+    const scrollRatioByAnimationRange = (currentYOffset - startY) / rangeY;
+
     if (style.hasOwnProperty("opacity")) {
       // 스크롤 비율에 대한.. opacity값의 시작과 끝 구하기
       const [start, end] = style.opacity;
       const range = end - start;
-      // const middle = start + range / 2;
 
-      // 전체 페이지 기준으로 스크롤 비율에 대한 opacityValue
-      const opacityValue = scrollRatio * range + start;
+      let opacityValue = 0;
+      if (startY < currentYOffset && currentYOffset < endY) {
+        if (currentYOffset > startY) {
+          opacityValue = scrollRatioByAnimationRange * range + start;
+        }
+        if (currentYOffset > middleY) {
+          opacityValue = 1 - opacityValue;
+        }
+      }
+      element.style.opacity = opacityValue * 2;
 
-      console.log(opacityValue);
+      // // 전체 페이지 기준으로 스크롤 비율에 대한 opacityValue
+      // const opacityValue = scrollRatio * range + start;
+
+      // console.log(opacityValue);
 
       // 애니메이션 구간에 해당하는 비율로 재계산 (애니메이션 구간을 곱해주면 됨)
       // opacityValueByRangeY = opacityValue * rangeY;
