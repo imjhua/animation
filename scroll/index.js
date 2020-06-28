@@ -58,8 +58,19 @@ const pageObj = {
       animationFrameRange: [0.3, 0.4],
       style: { opacity: [0, 1], translateY: [0, 20] },
     },
+    {
+      classSelector: "message-3",
+      animationFrameRange: [0.5, 0.6],
+      style: { opacity: [0, 1], translateY: [0, 20] },
+    },
+    {
+      classSelector: "message-4",
+      animationFrameRange: [0.7, 0.8],
+      style: { opacity: [0, 1], translateY: [0, 20] },
+    },
   ],
 };
+
 function playAnimation() {
   // 값의 범위와 애니메이션 구간을 혼동하지 말것!
   // 값의 변화와 구간의 변화를 나눠서 구해야해.
