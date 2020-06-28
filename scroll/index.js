@@ -71,6 +71,14 @@ const pageObj = {
   ],
 };
 
+// 스크롤 비율에 대한.. opacity값의 시작과 끝 구하기
+function calculatorScrollRatioValue(styleValue, scrollRatioByAnimationRange) {
+  const [start, end] = styleValue;
+  const range = end - start;
+
+  return scrollRatioByAnimationRange * range + start;
+}
+
 function playAnimation() {
   // 값의 범위와 애니메이션 구간을 혼동하지 말것!
   // 값의 변화와 구간의 변화를 나눠서 구해야해.
@@ -94,14 +102,13 @@ function playAnimation() {
     const scrollRatioByAnimationRange = (currentYOffset - startY) / rangeY;
 
     if (style.hasOwnProperty("opacity")) {
-      // 스크롤 비율에 대한.. opacity값의 시작과 끝 구하기
-      const [start, end] = style.opacity;
-      const range = end - start;
-
       let opacityValue = 0;
       if (startY < currentYOffset && currentYOffset < endY) {
         if (currentYOffset > startY) {
-          opacityValue = scrollRatioByAnimationRange * range + start;
+          opacityValue = calculatorScrollRatioValue(
+            style.opacity,
+            scrollRatioByAnimationRange
+          );
         }
         if (currentYOffset > middleY) {
           opacityValue = 1 - opacityValue;
@@ -110,15 +117,16 @@ function playAnimation() {
       element.style.opacity = opacityValue * 2;
     }
     if (style.hasOwnProperty("translateY")) {
-      const [start, end] = style.translateY;
-      const range = end - start;
-
       let translateY = 0;
       if (startY < currentYOffset && currentYOffset < endY) {
         if (currentYOffset > startY) {
-          translateY = scrollRatioByAnimationRange * range + start;
+          translateY = calculatorScrollRatioValue(
+            style.translateY,
+            scrollRatioByAnimationRange
+          );
         }
       }
+
       element.style.transform = `translate3d(0, -${translateY}%, 0)`;
     }
   }
