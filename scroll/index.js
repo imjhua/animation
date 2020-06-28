@@ -38,7 +38,7 @@ function init() {
 
 function setBodyPageId() {
   currentPageId = Math.floor(window.pageYOffset / pageHeight);
-  document.body.setAttribute("id", `show-page-${currentPageId}`);
+  // document.body.setAttribute("id", `show-page-${currentPageId}`);
 
   // 엘리먼트의 전체 크기 (border + padding + height)
   // elementHeight = pageHeight; // paddng-top
@@ -46,26 +46,44 @@ function setBodyPageId() {
   currentYOffset = pageYOffset - pageAccumulatedHeight;
 }
 
+// const pageObj = {};
 const pageObj = {
   0: [
     {
-      classSelector: "message-1",
+      classSelector: "message-0",
       animationFrameRange: [0.1, 0.2],
       style: { opacity: [0, 1], translateY: [0, 20] },
     },
     {
-      classSelector: "message-2",
+      classSelector: "message-1",
       animationFrameRange: [0.3, 0.4],
       style: { opacity: [0, 1], translateY: [0, 20] },
     },
     {
-      classSelector: "message-3",
+      classSelector: "message-2",
       animationFrameRange: [0.5, 0.6],
       style: { opacity: [0, 1], translateY: [0, 20] },
     },
     {
-      classSelector: "message-4",
+      classSelector: "message-3",
       animationFrameRange: [0.7, 0.8],
+      style: { opacity: [0, 1], translateY: [0, 20] },
+    },
+  ],
+  2: [
+    {
+      classSelector: "message-0",
+      animationFrameRange: [0.2, 0.3],
+      style: { opacity: [0, 1], translateY: [0, 20] },
+    },
+    {
+      classSelector: "message-desc-0",
+      animationFrameRange: [0.5, 0.65],
+      style: { opacity: [0, 1], translateY: [0, 20] },
+    },
+    {
+      classSelector: "message-desc-1",
+      animationFrameRange: [0.7, 0.85],
       style: { opacity: [0, 1], translateY: [0, 20] },
     },
   ],
@@ -87,7 +105,7 @@ function playAnimation() {
   const targets = pageObj[currentPageId] || [];
   for (const { classSelector, animationFrameRange, style } of targets) {
     const element = document.querySelector(
-      `#show-page-${currentPageId} .${classSelector}`
+      `.page-${currentPageId} .${classSelector}`
     );
     if (!element) return;
 
@@ -114,6 +132,7 @@ function playAnimation() {
           opacityValue = 1 - opacityValue;
         }
       }
+
       element.style.opacity = opacityValue * 2;
     }
     if (style.hasOwnProperty("translateY")) {

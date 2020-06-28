@@ -157,30 +157,35 @@ section {
 }
 .center {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
-  flex-flow: column;
+  /* flex-flow: column; */
   text-align: center;
+  top: 50vh;
 }
 .sticky {
-  display: none;
+  will-change: transform, opacity;
+  /* display: none; */
+  font-size: 2em;
   position: fixed;
-  top: 50vh;
   width: 100%;
   opacity: 0;
-  font-size: 2em;
   height: 3em;
-
   border: 1px solid blue;
 }
 
+section.page-2 .sticky.message-desc-0,
+section.page-2 .sticky.message-desc-1 {
+  top: 30vh;
+}
+/* 
 #show-page-0 .page-0 .sticky,
 #show-page-1 .page-1 .sticky,
 #show-page-2 .page-2 .sticky,
 #show-page-3 .page-3 .sticky {
   display: block;
-  /* will-change: transform, opacity; */
-}
+  will-change: transform, opacity;
+} */
 
 section.page-1 > strong {
   font-size: 3rem;
@@ -191,6 +196,7 @@ section.page-1 > strong {
 section.page-2 .description {
   width: 200px;
   overflow-wrap: break-word;
+
   /* word-break: break-word; */
 }
 
