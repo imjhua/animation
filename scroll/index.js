@@ -50,63 +50,120 @@ const pageObj = {
   0: [
     {
       classSelector: "message-1",
-      style: { opacityBlock: [0.1, 0.2], translateY: [0, 1] },
+      animationFrameRange: [0.1, 0.2],
+      style: { opacity: [0, 1], translateY: [0.1, 0.2] },
     },
     {
       classSelector: "message-2",
-      style: { opacityBlock: [0.3, 0.4], translateY: [0, 1] },
-    },
-    {
-      classSelector: "message-3",
-      style: { opacityBlock: [0.5, 0.6], translateY: [0, 1] },
-    },
-    {
-      classSelector: "message-4",
-      style: { opacityBlock: [0.7, 0.8], translateY: [0, 1] },
+      animationFrameRange: [0.3, 0.4],
+      style: { opacity: [0, 1], translateY: [0, 1] },
     },
   ],
-  // 2: [
-  //   {
-  //     classSelector: "message-1",
-  //     style: { opacityBlock: [0.1, 0.2], translateY: [0, 1] },
-  //   },
-  // ],
-  // 3: [
-  //   {
-  //     classSelector: "message-1",
-  //     style: { opacityBlock: [0.1, 0.2], translateY: [0, 1] },
-  //   },
-  // ],
 };
 function playAnimation() {
-  const targets = pageObj[currentPageId];
-  if (!targets) return;
+  // 값의 범위와 애니메이션 구간을 혼동하지 말것!
+  // 값의 변화와 구간의 변화를 나눠서 구해야해.
+  const scrollRatio = currentYOffset / pageHeight; // 값의 범위
 
-  for (const target of targets) {
-    const element = document.querySelector(
-      `#show-page-${currentPageId} .${target.classSelector}`
-    );
-    if (!element) return;
-
-    const [start, end] = target.style.opacityBlock;
+  const targets = pageObj[currentPageId] || [];
+  for (const { classSelector, animationFrameRange, style } of targets) {
+    // 애니메이션 구간의 시작과 끝 구하기
+    const [start, end] = animationFrameRange;
     const startY = start * pageHeight;
     const endY = end * pageHeight;
-    const range = endY - startY;
-    const middleY = startY + range / 2;
+    const rangeY = endY - startY;
 
-    let opacityValue = 0;
-    if (currentYOffset > startY) {
-      opacityValue = (currentYOffset - startY) / range;
-    }
-    if (currentYOffset > middleY) {
-      opacityValue = 1 - opacityValue;
-    }
-    if (currentYOffset > endY) {
-      opacityValue = 0;
+    let opacityValueByRangeY = 0;
+    if (style.hasOwnProperty("opacity")) {
+      // 스크롤 비율에 대한.. opacity값의 시작과 끝 구하기
+      const [start, end] = style.opacity;
+      const range = end - start;
+      // const middle = start + range / 2;
+
+      // 전체 페이지 기준으로 스크롤 비율에 대한 opacityValue
+      const opacityValue = scrollRatio * range + start;
+
+      console.log(opacityValue);
+
+      // 애니메이션 구간에 해당하는 비율로 재계산 (애니메이션 구간을 곱해주면 됨)
+      // opacityValueByRangeY = opacityValue * rangeY;
+      // console.log(opacityValueByRangeY)
+
+      // console.log(rangeY / pageHeight)
+      // console.log(opacityValueByRangeY)
+
+      if (currentYOffset < rangeY) {
+        // console.log(opacityValue);
+        // console.log(opacityValueByRangeY);
+      }
+
+      // console.log(opacityValueByRangeY)
     }
 
-    if (element) {
+    // currentYOffset 기준으로 animationFrameRange(애니메이션 구간)에 해당하는 경우만 el의 style을 업데이트한다.
+    // if (startY < currentYOffset && currentYOffset < endY) {
+    //   const element = document.querySelector(
+    //     `#show-page-${currentPageId} .${classSelector}`
+    //   );
+    //   if (!element) return;
+
+    //   element.style.opacity = opacityValueByRangeY;
+    //   // if (opacityValue) {
+    //   // }
+
+    //   // if (style.hasOwnProperty("opacity")) {
+    //   //   // opacity값의 시작과 끝 구하기
+    //   //   const [start, end] = style.opacity;
+    //   //   const range = end - start;
+    //   //   // const middle = start + range / 2;
+
+    //   //   let opacityValue = 0;
+    //   //   // console.log(range)
+    //   //   if (startY < currentYOffset) {
+    //   //     opacityValue = scrollRatio * range;
+    //   //     console.log(opacityValue);
+    //   //   }
+    //   //   // if (currentYOffset > middleY) {
+    //   //   //   opacityValue = 1 - opacityValue;
+    //   //   // }
+    //   //   // element.style.opacity = opacityValue * 2;
+    //   // }
+    // }
+    /*
+    if (style.hasOwnProperty("opacity")) {
+      const [start, end] = style.opacity;
+      const startY = start * pageHeight;
+      const endY = end * pageHeight;
+      const range = endY - startY;
+      const middleY = startY + range / 2;
+
+      let opacityValue = 0;
+      if (startY < currentYOffset && currentYOffset < endY) {
+        if (currentYOffset > startY) {
+          opacityValue = (currentYOffset - startY) / range;
+        }
+        if (currentYOffset > middleY) {
+          opacityValue = 1 - opacityValue;
+        }
+      }
       element.style.opacity = opacityValue * 2;
     }
+    if (style.hasOwnProperty("translateY")) {
+      const [start, end] = style.translateY;
+      const startY = start * pageHeight;
+      const endY = end * pageHeight;
+      const range = endY - startY;
+
+      let translateY = 0;
+      if (startY < currentYOffset && currentYOffset < endY) {
+        if (currentYOffset > startY) {
+          // 스크롤비율 - 범위 시작 값 * 변화하는 값의 범위
+          translateY = (scrollRatio - start) * 0.2 * 1000;
+        }
+      }
+
+      element.style.transform = `translate3d(0, -${translateY}%, 0)`;
+    }
+    */
   }
 }

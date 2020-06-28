@@ -169,6 +169,7 @@ section {
   width: 100%;
   opacity: 0;
   font-size: 2em;
+  height: 3em;
 }
 
 #show-page-0 .page-0 .sticky,
