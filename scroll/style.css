@@ -157,17 +157,18 @@ section {
 }
 .center {
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   justify-content: center;
-  /* flex-flow: column; */
+  flex-flow: column;
+  /* 해당 클래스 내의 자식 정렬 */
   text-align: center;
-  top: 50vh;
 }
 .sticky {
   will-change: transform, opacity;
   /* display: none; */
   font-size: 2em;
   position: fixed;
+  top: 50vh;
   width: 100%;
   opacity: 0;
   height: 3em;
