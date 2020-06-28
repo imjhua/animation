@@ -1,0 +1,228 @@
+div,
+span,
+article,
+section,
+header,
+footer,
+aside,
+p,
+ul,
+li,
+fieldset,
+legend,
+label,
+a,
+nav,
+form {
+  box-sizing: border-box;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  z-index: 1;
+}
+nav {
+  padding: 0 1rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+nav .nav-links {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+nav.main-nav {
+  height: 44px;
+  /* position: fixed; */
+}
+
+nav.sub-nav {
+  top: 45px;
+  /* position: fixed; */
+  height: 52px;
+  border-bottom: 1px solid #eee;
+}
+
+nav.main-nav .nav-links {
+  justify-content: space-between;
+}
+
+nav.sub-nav .nav-links a:not(.product-name) {
+  font-size: 0.8rem;
+  margin-left: 2em;
+}
+
+nav.sub-nav .nav-links a.product-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-right: auto;
+}
+section {
+  position: relative;
+  padding-top: 40vh;
+  /* box-sizing: border-box; */
+  border: 1px solid red;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  text-align: center;
+}
+.sticky {
+  display: none;
+  position: fixed;
+  top: 50vh;
+  width: 100%;
+  opacity: 0;
+  font-size: 2em;
+}
+
+#show-page-0 .page-0 .sticky,
+#show-page-1 .page-1 .sticky,
+#show-page-2 .page-2 .sticky,
+#show-page-3 .page-3 .sticky {
+  display: block;
+  /* will-change: transform, opacity; */
+}
+
+section.page-1 > strong {
+  font-size: 3rem;
+  margin-right: 0.2em;
+  float: left;
+}
+
+section.page-2 .description {
+  width: 200px;
+  overflow-wrap: break-word;
+  /* word-break: break-word; */
+}
+
+section.page-2 .pin {
+  border-left: 1px solid #000;
+  height: 40px;
+}
+
+section.page-3 h1 {
+  margin-bottom: 0;
+}
+section.page-3 h2 {
+  margin-top: 10px;
+  color: #aaa;
+}
+
+section.page-4 .text {
+  color: #aaa;
+}
+
+footer {
+  margin-top: 20px;
+  height: 200px;
+  background-color: silver;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+/* 
+.page-0,
+.page-1,
+.page-2,
+.page-3,
+.page-4 {
+  display: none !important;
+} 
+*/
