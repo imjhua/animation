@@ -151,8 +151,6 @@ nav.sub-nav .nav-links a.product-name {
 }
 section {
   position: relative;
-  padding-top: 40vh;
-  /* box-sizing: border-box; */
   border: 1px solid red;
 }
 .sticky {
@@ -174,6 +172,9 @@ section {
   flex-flow: column;
   /* 해당 클래스 내의 자식 정렬 */
   text-align: center;
+}
+section.page-0{
+  padding-top: 40vh;
 }
 
 section.page-2 .sticky.message-1,

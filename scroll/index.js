@@ -1,49 +1,76 @@
-window.addEventListener("load", function () {
-  init();
-  setBodyPageId();
-});
-
-window.addEventListener("resize", function () {
-  init();
-  setBodyPageId();
-});
-
+// (function () {
+window.addEventListener("load", init);
+window.addEventListener("resize", init);
 window.addEventListener("scroll", function () {
-  setBodyPageId();
+  setCurrentPageInfo();
   playAnimation();
 });
 
 // global variable
-const PAGE_IDS_FOR_SCROLL = [0, 1, 2, 3];
-const HEIGHT_SIZE = 5;
-let currentPageId = 0;
-let pageHeight = null;
-let pageHeightForPrev = 0;
-let currentYOffset = null;
+const PAGE_IDS_FOR_SCROLL = [0, 2, 3];
+const HEIGHT_SIZE_X = 5;
+const PAGE_HEIGHT = window.innerHeight * HEIGHT_SIZE_X;
+
+let g_pageSize = 0;
+let g_currentPageId = 0;
+let g_currentYOffset = null;
+let g_endPageOffsetList = [];
 
 function init() {
-  // setPageHeight
-  pageHeight = window.innerHeight * HEIGHT_SIZE;
+  /* 
+    박스크기를 설정할 때, 원하는 크기를 얻기 위해 테두리(border)나 안쪽 여백(padding)을 고려해야하는데, 이러한 예측을 쉽게 하고자 테두리를 포함한 크기(테두리를 기준으로 박스크기 계산)를 미리 지정하였다.
+    - box-sizing: border-box; 
+  */
 
-  for (let id of PAGE_IDS_FOR_SCROLL) {
-    // style의 hegith를 주는 것은 elemnet의 Height와는 다른 것이다! ->  box-sizing: border-box; 해결?
-    // box-sizing를 border-box로 지정하면,
-    // 테두리를 포함한 크기(테두리를 기준으로 크기를 함)를 지정할 수 있기 때문에 예측하기가 더 쉽다.
-    // 엘리먼트의 전체 크기 (border + padding + height)
-    document.querySelector(
-      `section.page-${id}`
-    ).style.height = `${pageHeight}px`;
+  const sections = Array.from(document.querySelectorAll("section") || []);
+  let endPageOffset = 0;
+  for (const section of sections) {
+    for (let id of PAGE_IDS_FOR_SCROLL) {
+      if (section.classList.contains(`page-${id}`)) {
+        section.style.height = `${window.innerHeight * HEIGHT_SIZE_X}px`;
+      }
+    }
+
+    endPageOffset += section.offsetHeight;
+    g_endPageOffsetList.push(endPageOffset);
+    g_pageSize++;
   }
+
+  setCurrentPageInfo();
 }
 
-function setBodyPageId() {
-  currentPageId = Math.floor(window.pageYOffset / pageHeight);
-  // document.body.setAttribute("id", `show-page-${currentPageId}`);
+function setCurrentPageInfo() {
+  /* 
+  offset 값으로 속한 범위(currentPageId)를 구하고자 할떄,
+  범위의 임계치가 되는 기준에 준하면 해당 범위로 특정한다.
+  임계치가 넘으면 다음 범위에서 확인..
+  */
 
-  // 엘리먼트의 전체 크기 (border + padding + height)
-  // elementHeight = pageHeight; // paddng-top
-  pageAccumulatedHeight = pageHeight * currentPageId;
-  currentYOffset = pageYOffset - pageAccumulatedHeight;
+  // // flag 대신 else if 구문을 사용 할 수 있다.
+  // let flag = true;
+  // if (flag && window.pageYOffset < g_endPageOffsetList[0]) {
+  //   g_currentPageId = 0;
+  //   flag = false;
+  // }
+  // if (flag && window.pageYOffset < g_endPageOffsetList[1]) {
+  //   g_currentPageId = 1;
+  //   flag = false;
+  // }
+  // if (flag && window.pageYOffset < g_endPageOffsetList[2]) {
+  //   g_currentPageId = 2;
+  //   flag = false;
+  // }
+
+  let flag = true;
+  for (let i = 0; i < g_pageSize; i++) {
+    const endPageOffset = g_endPageOffsetList[i];
+    if (flag && window.pageYOffset < endPageOffset) {
+      const startPageOffset = i === 0 ? 0 : g_endPageOffsetList[i - 1];
+      g_currentYOffset = window.pageYOffset - startPageOffset;
+      g_currentPageId = i;
+      flag = false;
+    }
+  }
 }
 
 // const pageObj = {};
@@ -73,27 +100,27 @@ const pageObj = {
   2: [
     {
       classSelector: "message-0",
-      animationFrameRange: [0.1, 0.3],
+      animationFrameRange: [0.1, 0.25],
       style: { opacity: [0, 1], translateY: [0, -20] },
     },
     {
       classSelector: "message-1",
-      animationFrameRange: [0.5, 0.65],
+      animationFrameRange: [0.3, 0.55],
       style: { opacity: [0, 1], translateY: [0, -30] },
     },
     {
       classSelector: "message-1 .pin",
-      animationFrameRange: [0.5, 0.65],
+      animationFrameRange: [0.3, 0.55],
       style: { scaleY: [50, 100] },
     },
     {
       classSelector: "message-2",
-      animationFrameRange: [0.7, 0.85],
+      animationFrameRange: [0.65, 0.85],
       style: { opacity: [0, 1], translateY: [0, -30] },
     },
     {
       classSelector: "message-2 .pin",
-      animationFrameRange: [0.7, 0.85],
+      animationFrameRange: [0.65, 0.85],
       style: { scaleY: [50, 100] },
     },
   ],
@@ -110,35 +137,35 @@ function calculatorScrollRatioValue(styleValue, scrollRatioByAnimationRange) {
 function playAnimation() {
   // 값의 범위와 애니메이션 구간을 혼동하지 말것!
   // 값의 변화와 구간의 변화를 나눠서 구해야해.
-  const scrollRatio = currentYOffset / pageHeight; // 전체페이지를 기준으로 스크롤 비율
+  // const scrollRatio = g_currentYOffset / PAGE_HEIGHT; // 전체페이지를 기준으로 스크롤 비율
 
-  const targets = pageObj[currentPageId] || [];
+  const targets = pageObj[g_currentPageId] || [];
   for (const { classSelector, animationFrameRange, style } of targets) {
     const element = document.querySelector(
-      `.page-${currentPageId} .${classSelector}`
+      `.page-${g_currentPageId} .${classSelector}`
     );
     if (!element) return;
 
     // 애니메이션 구간의 시작과 끝 구하기
     const [start, end] = animationFrameRange;
-    const startY = start * pageHeight;
-    const endY = end * pageHeight;
+    const startY = start * PAGE_HEIGHT;
+    const endY = end * PAGE_HEIGHT;
     const rangeY = endY - startY;
     const middleY = startY + rangeY / 2;
 
     // 애니메이션 시작부터의 종료까지 구간을 기준으로 스크롤 비율
-    const scrollRatioByAnimationRange = (currentYOffset - startY) / rangeY;
+    const scrollRatioByAnimationRange = (g_currentYOffset - startY) / rangeY;
 
     if (style.hasOwnProperty("opacity")) {
       let opacityValue = 0;
-      if (startY < currentYOffset && currentYOffset < endY) {
-        if (currentYOffset > startY) {
+      if (startY < g_currentYOffset && g_currentYOffset < endY) {
+        if (g_currentYOffset > startY) {
           opacityValue = calculatorScrollRatioValue(
             style.opacity,
             scrollRatioByAnimationRange
           );
         }
-        if (currentYOffset > middleY) {
+        if (g_currentYOffset > middleY) {
           opacityValue = 1 - opacityValue;
         }
       }
@@ -147,8 +174,8 @@ function playAnimation() {
     }
     if (style.hasOwnProperty("translateY")) {
       let translateY = 0;
-      if (startY < currentYOffset && currentYOffset < endY) {
-        if (currentYOffset > startY) {
+      if (startY < g_currentYOffset && g_currentYOffset < endY) {
+        if (g_currentYOffset > startY) {
           translateY = calculatorScrollRatioValue(
             style.translateY,
             scrollRatioByAnimationRange
@@ -161,8 +188,8 @@ function playAnimation() {
 
     if (style.hasOwnProperty("scaleY")) {
       let scaleY = 0;
-      if (startY < currentYOffset && currentYOffset < endY) {
-        if (currentYOffset > startY) {
+      if (startY < g_currentYOffset && g_currentYOffset < endY) {
+        if (g_currentYOffset > startY) {
           scaleY = calculatorScrollRatioValue(
             style.scaleY,
             scrollRatioByAnimationRange
@@ -170,7 +197,8 @@ function playAnimation() {
         }
       }
 
-      element.style.transform = `scaleY(${scaleY/100})`;
+      element.style.transform = `scaleY(${scaleY / 100})`;
     }
   }
 }
+// })();
