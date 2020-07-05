@@ -51,40 +51,50 @@ const pageObj = {
   0: [
     {
       classSelector: "message-0",
-      animationFrameRange: [0.1, 0.2],
-      style: { opacity: [0, 1], translateY: [0, 20] },
+      animationFrameRange: [0.1, 0.25],
+      style: { opacity: [0, 1], translateY: [0, -20] },
     },
     {
       classSelector: "message-1",
-      animationFrameRange: [0.3, 0.4],
-      style: { opacity: [0, 1], translateY: [0, 20] },
+      animationFrameRange: [0.3, 0.45],
+      style: { opacity: [0, 1], translateY: [0, -20] },
     },
     {
       classSelector: "message-2",
-      animationFrameRange: [0.5, 0.6],
-      style: { opacity: [0, 1], translateY: [0, 20] },
+      animationFrameRange: [0.5, 0.65],
+      style: { opacity: [0, 1], translateY: [0, -20] },
     },
     {
       classSelector: "message-3",
-      animationFrameRange: [0.7, 0.8],
-      style: { opacity: [0, 1], translateY: [0, 20] },
+      animationFrameRange: [0.7, 0.85],
+      style: { opacity: [0, 1], translateY: [0, -20] },
     },
   ],
   2: [
     {
       classSelector: "message-0",
-      animationFrameRange: [0.2, 0.3],
-      style: { opacity: [0, 1], translateY: [0, 20] },
+      animationFrameRange: [0.1, 0.3],
+      style: { opacity: [0, 1], translateY: [0, -20] },
     },
     {
-      classSelector: "message-desc-0",
+      classSelector: "message-1",
       animationFrameRange: [0.5, 0.65],
-      style: { opacity: [0, 1], translateY: [0, 20] },
+      style: { opacity: [0, 1], translateY: [0, -30] },
     },
     {
-      classSelector: "message-desc-1",
+      classSelector: "message-1 .pin",
+      animationFrameRange: [0.5, 0.65],
+      style: { scaleY: [50, 100] },
+    },
+    {
+      classSelector: "message-2",
       animationFrameRange: [0.7, 0.85],
-      style: { opacity: [0, 1], translateY: [0, 20] },
+      style: { opacity: [0, 1], translateY: [0, -30] },
+    },
+    {
+      classSelector: "message-2 .pin",
+      animationFrameRange: [0.7, 0.85],
+      style: { scaleY: [50, 100] },
     },
   ],
 };
@@ -146,7 +156,21 @@ function playAnimation() {
         }
       }
 
-      element.style.transform = `translate3d(0, -${translateY}%, 0)`;
+      element.style.transform = `translate3d(0, ${translateY}%, 0)`;
+    }
+
+    if (style.hasOwnProperty("scaleY")) {
+      let scaleY = 0;
+      if (startY < currentYOffset && currentYOffset < endY) {
+        if (currentYOffset > startY) {
+          scaleY = calculatorScrollRatioValue(
+            style.scaleY,
+            scrollRatioByAnimationRange
+          );
+        }
+      }
+
+      element.style.transform = `scaleY(${scaleY/100})`;
     }
   }
 }

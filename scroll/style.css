@@ -155,14 +155,6 @@ section {
   /* box-sizing: border-box; */
   border: 1px solid red;
 }
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column;
-  /* 해당 클래스 내의 자식 정렬 */
-  text-align: center;
-}
 .sticky {
   will-change: transform, opacity;
   /* display: none; */
@@ -175,18 +167,27 @@ section {
   border: 1px solid blue;
 }
 
-section.page-2 .sticky.message-desc-0,
-section.page-2 .sticky.message-desc-1 {
-  top: 30vh;
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  /* 해당 클래스 내의 자식 정렬 */
+  text-align: center;
 }
-/* 
-#show-page-0 .page-0 .sticky,
-#show-page-1 .page-1 .sticky,
-#show-page-2 .page-2 .sticky,
-#show-page-3 .page-3 .sticky {
-  display: block;
-  will-change: transform, opacity;
-} */
+
+section.page-2 .sticky.message-1,
+section.page-2 .sticky.message-2 {
+  top: 30vh;
+  width: 200px;
+}
+
+section.page-2 .sticky.message-1 {
+  right: 10%; /* fixed 정렬. 기본적으로는 marign-x: auto */
+}
+section.page-2 .sticky.message-2 {
+  left: 10%; /* fixed 정렬. 기본적으로는 marign-x: auto */
+}
 
 section.page-1 > strong {
   font-size: 3rem;
@@ -195,15 +196,14 @@ section.page-1 > strong {
 }
 
 section.page-2 .description {
-  width: 200px;
-  overflow-wrap: break-word;
-
   /* word-break: break-word; */
+  overflow-wrap: break-word;
+  font-size: 1rem;
 }
 
 section.page-2 .pin {
   border-left: 1px solid #000;
-  height: 40px;
+  height: 100px;
 }
 
 section.page-3 h1 {
