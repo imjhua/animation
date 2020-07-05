@@ -20,7 +20,7 @@
     /* 
     박스크기를 설정할 때, 원하는 크기를 얻기 위해 테두리(border)나 안쪽 여백(padding)을 고려해야하는데, 이러한 예측을 쉽게 하고자 테두리를 포함한 크기(테두리를 기준으로 박스크기 계산)를 미리 지정하였다.
     - box-sizing: border-box; 
-  */
+    */
 
     const sections = Array.from(document.querySelectorAll("section") || []);
     let endPageOffset = 0;
@@ -77,6 +77,16 @@
   const pageObj = {
     0: [
       {
+        classSelector: "canvas",
+        animationFrameRange: [0, 1],
+        style: { dir: "001", imageId: [6726, 6726 + 300] },
+      },
+      // {
+      //   classSelector: "canvas",
+      //   animationFrameRange: [0.9, 1],
+      //   style: { opacity: [1, 0] },
+      // },
+      {
         classSelector: "message-0",
         animationFrameRange: [0.1, 0.25],
         style: { opacity: [0, 1], translateY: [0, -20] },
@@ -99,6 +109,16 @@
     ],
     2: [
       {
+        classSelector: "canvas",
+        animationFrameRange: [0, 1],
+        style: { dir: "002", imageId: [7026, 7026 + 960] },
+      },
+      // {
+      //   classSelector: "canvas",
+      //   animationFrameRange: [0.9, 1],
+      //   style: { opacity: [1, 0] },
+      // },
+      {
         classSelector: "message-0",
         animationFrameRange: [0.1, 0.25],
         style: { opacity: [0, 1], translateY: [0, -20] },
@@ -111,7 +131,7 @@
       {
         classSelector: "message-1 .pin",
         animationFrameRange: [0.3, 0.55],
-        style: { scaleY: [50, 100] },
+        style: { opacity: [0, 1], scaleY: [50, 100] },
       },
       {
         classSelector: "message-2",
@@ -121,7 +141,7 @@
       {
         classSelector: "message-2 .pin",
         animationFrameRange: [0.65, 0.85],
-        style: { scaleY: [50, 100] },
+        style: { opacity: [0, 1], scaleY: [50, 100] },
       },
     ],
   };
@@ -135,9 +155,13 @@
   }
 
   function playAnimation() {
-    // 값의 범위와 애니메이션 구간을 혼동하지 말것!
-    // 값의 변화와 구간의 변화를 나눠서 구해야해.
-    // const scrollRatio = g_currentYOffset / PAGE_HEIGHT; // 전체페이지를 기준으로 스크롤 비율
+    if (g_currentPageId === 0 && window.pageYOffset === 0) {
+      const stickyEls = document.querySelectorAll(`.sticky`);
+      for (const stickyEl of stickyEls) {
+        stickyEl.style.opacity = 0;
+      }
+      return;
+    }
 
     const targets = pageObj[g_currentPageId] || [];
     for (const { classSelector, animationFrameRange, style } of targets) {
@@ -146,6 +170,11 @@
       );
       if (!element) return;
 
+      /* 
+      - 값의 범위와 애니메이션 구간을 혼동하지 말것!
+      - 값의 변화와 구간의 변화를 나눠서 구해야해.
+      */
+
       // 애니메이션 구간의 시작과 끝 구하기
       const [start, end] = animationFrameRange;
       const startY = start * PAGE_HEIGHT;
@@ -153,9 +182,13 @@
       const rangeY = endY - startY;
       const middleY = startY + rangeY / 2;
 
+      // const scrollRatio = g_currentYOffset / PAGE_HEIGHT; // 전체페이지를 기준으로 스크롤 비율
       // 애니메이션 시작부터의 종료까지 구간을 기준으로 스크롤 비율
       const scrollRatioByAnimationRange =
         Math.round(((g_currentYOffset - startY) / rangeY) * 100) / 100;
+
+      // init
+      if (scrollRatioByAnimationRange < 0) return;
 
       if (startY - 100 < g_currentYOffset && g_currentYOffset < endY + 100) {
         // opacity
@@ -188,6 +221,23 @@
             scrollRatioByAnimationRange
           );
           element.style.transform = `scaleY(${scaleY / 100})`;
+        }
+
+        // canvas
+        // IMG_7025
+        if (style.hasOwnProperty("imageId")) {
+          const imageId = Math.round(
+            calculatorScrollRatioValue(
+              style.imageId,
+              scrollRatioByAnimationRange
+            )
+          );
+          const ctx = element.getContext("2d");
+          const img = new Image();
+          img.onload = function () {
+            ctx.drawImage(img, 0, 0);
+          };
+          img.src = `./video/${style.dir}/IMG_${imageId}.JPG`;
         }
       }
     }
