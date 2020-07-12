@@ -4,9 +4,20 @@ body {
 
 .bike {
   position: absolute;
+  animation: bike infinite ease-in 1s;
+}
+
+@keyframes bike {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
 }
 
 .circle {
+  float: left;
   box-sizing: border-box;
   border-radius: 100%;
   border: 10px solid #000;
@@ -76,7 +87,7 @@ body {
 
 .smoke span {
   background: rgb(81, 173, 146);
-  width: 20px;
+  width: 30px;
   height: 20px;
   border-radius: 100%;
   display: inline-block;
@@ -93,21 +104,21 @@ body {
 .smoke span:nth-child(3) {
   animation-delay: 1s;
 }
-@keyframes smoke{
-  0%{
-    transform: scale(0) translateX(0); 
+@keyframes smoke {
+  0% {
+    transform: scale(0) translateX(0);
     opacity: 0;
     filter: blur(0);
   }
-  30%{
-    transform: scale(1) translateX(50px);  
+  30% {
+    transform: scale(1) translateX(50px);
     opacity: 1;
   }
-  70%{
+  70% {
     opacity: 1;
   }
-  100%{
-    transform: translateX(100px); 
+  100% {
+    transform: translateX(100px);
     opacity: 0;
     filter: blur(10px);
   }
