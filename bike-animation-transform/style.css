@@ -1,0 +1,114 @@
+body {
+  font-family: sans-serif;
+}
+
+.bike {
+  position: absolute;
+}
+
+.circle {
+  box-sizing: border-box;
+  border-radius: 100%;
+  border: 10px solid #000;
+  height: 100px;
+  width: 100px;
+  animation: circle infinite linear 1s;
+}
+
+@keyframes circle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+.circle:before {
+  content: "";
+  position: absolute;
+  /* 
+    before에서 생성된 content는 인라인 요소.
+    position absolute를 주게 되면 block요소로 변화된다. 
+  */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #000;
+  width: 20%;
+  height: 20%;
+  border-radius: 100%;
+}
+
+.circle i {
+  background: #000;
+  position: absolute;
+}
+
+.circle i:nth-child(1) {
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 1px;
+}
+.circle i:nth-child(2) {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+}
+
+.circle i:nth-child(3) {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  transform: rotate(45deg);
+}
+
+.circle i:nth-child(4) {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  transform: rotate(-45deg);
+}
+
+.smoke span {
+  background: rgb(81, 173, 146);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  display: inline-block;
+  position: absolute;
+  opacity: 0;
+  animation: smoke infinite linear 1.5s;
+}
+.smoke span:nth-child(1) {
+  animation-delay: 0s;
+}
+.smoke span:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.smoke span:nth-child(3) {
+  animation-delay: 1s;
+}
+@keyframes smoke{
+  0%{
+    transform: scale(0) translateX(0); 
+    opacity: 0;
+    filter: blur(0);
+  }
+  30%{
+    transform: scale(1) translateX(50px);  
+    opacity: 1;
+  }
+  70%{
+    opacity: 1;
+  }
+  100%{
+    transform: translateX(100px); 
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
