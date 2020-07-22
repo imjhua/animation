@@ -36,7 +36,6 @@ a {
 } 
 */
 
-
 .menu-box ul > li:hover > ul {
   display: block;
   position: absolute;
@@ -69,4 +68,12 @@ a {
 
 .menu-box > ul > li > ul > li > ul {
   background-color: #7252a5;
+}
+
+.menu-box ul > li > a {
+  display: block;
+}
+.menu-box ul > li:hover > a {
+  background-color: #000;
+  color: #fff;
 }
