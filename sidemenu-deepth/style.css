@@ -1,0 +1,72 @@
+/* 노말라이즈 */
+body,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 메뉴 공통 */
+.menu-box ul {
+  position: absolute;
+  width: 150px;
+  top: 0;
+  bottom: 0;
+}
+
+/* 1차메뉴 외의 하위 메뉴(ul - 2, 3차 메뉴)들은 기본 숨김 */
+.menu-box > ul ul {
+  display: none;
+
+  /* 아래는 hover 테스트 용도 */
+  /* display: block;
+  position: absolute;
+  left: 150px; */
+}
+
+/* 
+메뉴 시작위치에 맞출거면 상위 포지션 추가 해야함
+.menu-box ul > li {
+  position: relative;
+} 
+*/
+
+
+.menu-box ul > li:hover > ul {
+  display: block;
+  position: absolute;
+  left: 150px;
+  top: 0px;
+}
+
+/* 
+1차 메뉴 hover시 2차 메뉴 보이기
+.menu-box > ul > li:hover > ul {
+  display: block;
+}
+
+2차 메뉴 hover시 3차 메뉴 보이기
+.menu-box > ul > li > ul > li:hover > ul {
+  display: block;
+} 
+*/
+
+.menu-box > ul {
+  display: inline-block;
+  background-color: #dfdfdf;
+  /* padding: 0 10px; */
+  /* border-radius: 10px; */
+}
+
+.menu-box > ul > li > ul {
+  background-color: #c77878;
+}
+
+.menu-box > ul > li > ul > li > ul {
+  background-color: #7252a5;
+}
