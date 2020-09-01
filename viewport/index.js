@@ -1,199 +1,90 @@
+/* 
+뷰포트의 좌표: getBoundingClientRect.top
+문서의 좌표: getBoundingClientRect.top + pageYOffset
+*/
 
-// window.scrollY: 스크롤 위치
-// window.pageYOffset: 페이지 높이
-// window.innerHeight: 윈도우 전체 크기
+const target = document.getElementById("target");
+// console.log(target.getBoundingClientRect());
+// console.log(target.offsetParent);
 
-      const viewTop = $w.scrollTop(),
-      const viewBottom = viewTop + $w.height(),
+/* 
+- 뷰포트: innerWidth & innerHeight
+- 해상도: window.screen.width & window.screen.height
+*/
 
-(function () {
-  window.addEventListener("load", init);
-  window.addEventListener("resize", init);
-  window.addEventListener("scroll", function () {
-    const boxEls = document.querySelector('.box');
-    for (const boxEl of boxEls) {
-      boxEl.addClass('anmiation');
-    }
-    // setCurrentPageInfo();
-    // playAnimation();
-  });
+console.log(
+  "window.innerWidth: ",
+  window.innerWidth,
+  "window.innerHeight: ",
+  window.innerHeight,
+  "window.screen.width: ",
+  window.screen.width,
+  "window.screen.height: ",
+  window.screen.height
+);
 
-  return;
+let isIn = false;
+window.addEventListener("scroll", function (e) {
+  console.log(
+    "getBoundingClientRect: ",
+    target.getBoundingClientRect().top,
+    "pageYOffset",
+    window.pageYOffset // 스크롤을 해당 px만큼 움직였다. 스크롤한 정도를 의미
+  );
 
-  // global variable
-  const PAGE_IDS_FOR_SCROLL = [0];
-  const HEIGHT_SIZE_X = 5;
-  const PAGE_HEIGHT = window.innerHeight * HEIGHT_SIZE_X;
+  /* 
+  뷰포트를 기준으로 타겟엘리먼트가 얼마만큼 떨어져있는가는
+  getBoundingClientRect.top를 통해 알 수 있다.
 
-  let g_pageSize = 0;
-  let g_currentPageId = 0;
-  let g_currentYOffset = null;
-  let g_endPageOffsetList = [];
+  타겟 엘리먼트가.. 뷰포트에 진입한 떄는?
+  getBoundingClientRect.top이 뷰포트 높이와 같은 때!!
+  이때 뷰포트 높이는,
 
-  function init() {
-    /* 
-    박스크기를 설정할 때, 원하는 크기를 얻기 위해 테두리(border)나 안쪽 여백(padding)을 고려해야하는데, 이러한 예측을 쉽게 하고자 테두리를 포함한 크기(테두리를 기준으로 박스크기 계산)를 미리 지정하였다.
-    - box-sizing: border-box; 
-    */
-
-    const sections = Array.from(document.querySelectorAll("section") || []);
-    let endPageOffset = 0;
-    for (const section of sections) {
-      for (let id of PAGE_IDS_FOR_SCROLL) {
-        if (section.classList.contains(`page-${id}`)) {
-          section.style.height = `${window.innerHeight * HEIGHT_SIZE_X}px`;
-        }
-      }
-
-      endPageOffset += section.offsetHeight;
-      g_endPageOffsetList.push(endPageOffset);
-      g_pageSize++;
-    }
-
-    setCurrentPageInfo();
-  }
-
-  function setCurrentPageInfo() {
-    /* 
-  offset 값으로 속한 범위(currentPageId)를 구하고자 할떄,
-  범위의 임계치가 되는 기준에 준하면 해당 범위로 특정한다.
-  임계치가 넘으면 다음 범위에서 확인..
+  - 뷰포트: innerWidth & innerHeight
+  - 해상도: window.screen.width & window.screen.height
   */
 
-    // // flag 대신 else if 구문을 사용 할 수 있다.
-    // let flag = true;
-    // if (flag && window.pageYOffset < g_endPageOffsetList[0]) {
-    //   g_currentPageId = 0;
-    //   flag = false;
-    // }
-    // if (flag && window.pageYOffset < g_endPageOffsetList[1]) {
-    //   g_currentPageId = 1;
-    //   flag = false;
-    // }
-    // if (flag && window.pageYOffset < g_endPageOffsetList[2]) {
-    //   g_currentPageId = 2;
-    //   flag = false;
-    // }
+  /* 
+  스크롤을 할 수록 
+  - getBoundingClientRect.top은 작아지고.. ->  뷰포트와 가까워지고
+  - pageYOffset은 커진다. -> 브라우저 절대좌표 최상단과는 멀어진다.
+  */
 
-    let flag = true;
-    for (let i = 0; i < g_pageSize; i++) {
-      const endPageOffset = g_endPageOffsetList[i];
-      if (flag && window.pageYOffset < endPageOffset) {
-        const startPageOffset = i === 0 ? 0 : g_endPageOffsetList[i - 1];
-        g_currentYOffset = window.pageYOffset - startPageOffset;
-        g_currentPageId = i;
-        flag = false;
-      }
-    }
+  // 빼꼼 구간에서 진입하기.
+  // 뺴꼼은.. 엘리먼트 시작 전 50 & 시작 후 50
+
+  const padding = 10;
+  const startPoint = target.getBoundingClientRect().top - padding;
+  const endPoint = target.getBoundingClientRect().top + padding;
+
+  // 같은지만 체크하면 스크롤이 너무 빨리 움직일때 px를 건너 뛸 수 있다.
+  // 어느정도 값의 허용치? 범위를 구해놓아야 함.
+  const isInViewPort =
+    // window.innerHeight === target.getBoundingClientRect().top;
+    startPoint < window.innerHeight && window.innerHeight < endPoint;
+
+  if (!isIn && isInViewPort) {
+    console.log("진입!");
+    isIn = true;
+
+    target.classList.add('animation')
   }
+});
 
-  const pageObj = {
-    0: [
-      {
-        classSelector: "message-0",
-        animationFrameRange: [0.1, 0.25],
-        style: { opacity: [0, 1], translateY: [0, -20] },
-      },
-      {
-        classSelector: "message-1",
-        animationFrameRange: [0.3, 0.55],
-        style: { opacity: [0, 1], translateY: [0, -30] },
-      },
-      {
-        classSelector: "message-1 .pin",
-        animationFrameRange: [0.3, 0.55],
-        style: { opacity: [0, 1], scaleY: [50, 100] },
-      },
-      {
-        classSelector: "message-2",
-        animationFrameRange: [0.60, 0.75],
-        style: { opacity: [0, 1], translateY: [0, -30] },
-      },
-      {
-        classSelector: "message-2 .pin",
-        animationFrameRange: [0.60, 0.75],
-        style: { opacity: [0, 1], scaleY: [50, 100] },
-      },
-    ],
-  };
+function init() {
+  setInterval(() => {
+    // 0이라면? 뷰포트 즉, 브라우저 맨 위에 딱 붙어있는 상태가 된다.
+    // offsetParent은 body...
+    // 스크롤을 한다고 해서 body의 위치가 변하는 것이 아닌데
+    // 왜 top이 줄어들지?
+    // offsetParent의 기준은 상관없나??
 
-  // 스크롤 비율에 대한.. opacity값의 시작과 끝 구하기
-  function calculatorScrollRatioValue(styleValue, scrollRatioByAnimationRange) {
-    const [start, end] = styleValue;
-    const range = end - start;
-
-    return scrollRatioByAnimationRange * range + start;
-  }
-
-  function playAnimation() {
-    if (g_currentPageId === 0 && window.pageYOffset === 0) {
-      const stickyEls = document.querySelectorAll('.sticky');
-      for (const stickyEl of stickyEls) {
-        stickyEl.style.opacity = 0;
-      }
-      return;
-    }
-
-    const targets = pageObj[g_currentPageId] || [];
-    for (const { classSelector, animationFrameRange, style } of targets) {
-      const element = document.querySelector(
-        `.page-${g_currentPageId} .${classSelector}`
-      );
-      if (!element) return;
-
-      /* 
-      - 값의 범위와 애니메이션 구간을 혼동하지 말것!
-      - 값의 변화와 구간의 변화를 나눠서 구해야해.
-      */
-
-      // 애니메이션 구간의 시작과 끝 구하기
-      const [start, end] = animationFrameRange;
-      const startY = start * PAGE_HEIGHT;
-      const endY = end * PAGE_HEIGHT;
-      const rangeY = endY - startY;
-      const middleY = startY + rangeY / 2;
-
-      // const scrollRatio = g_currentYOffset / PAGE_HEIGHT; // 전체페이지를 기준으로 스크롤 비율
-      // 애니메이션 시작부터의 종료까지 구간을 기준으로 스크롤 비율
-      const scrollRatioByAnimationRange =
-        Math.round(((g_currentYOffset - startY) / rangeY) * 100) / 100;
-
-      // init
-      if (scrollRatioByAnimationRange < 0) return;
-
-      if (startY - 100 < g_currentYOffset && g_currentYOffset < endY + 100) {
-        // opacity
-        if (style.hasOwnProperty("opacity")) {
-          let opacityValue = calculatorScrollRatioValue(
-            style.opacity,
-            scrollRatioByAnimationRange
-          );
-
-          if (g_currentYOffset > middleY) {
-            opacityValue = 1 - opacityValue;
-          }
-
-          element.style.opacity = opacityValue * 2;
-        }
-
-        // translateY
-        if (style.hasOwnProperty("translateY")) {
-          const translateY = calculatorScrollRatioValue(
-            style.translateY,
-            scrollRatioByAnimationRange
-          );
-          element.style.transform = `translate3d(0, ${translateY}%, 0)`;
-        }
-
-        // scaleY
-        if (style.hasOwnProperty("scaleY")) {
-          const scaleY = calculatorScrollRatioValue(
-            style.scaleY,
-            scrollRatioByAnimationRange
-          );
-          element.style.transform = `scaleY(${scaleY / 100})`;
-        }
-      }
-    }
-  }
-})();
+    // window.pageYOffset 는 브라우저이다.
+    console.log(
+      "getBoundingClientRect: ",
+      target.getBoundingClientRect().top,
+      "pageYOffset",
+      window.pageYOffset // 스크롤을 해당 px만큼 움직였다. 스크롤한 정도를 의미
+    );
+  }, 1000);
+}
