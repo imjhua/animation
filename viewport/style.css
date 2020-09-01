@@ -4,7 +4,7 @@ body {
 }
 #target {
   width: 100px;
-  /* height: 100px; */
+  height: 100px;
   border: 50px solid red;
   padding: 50px;
   margin: 50px;
