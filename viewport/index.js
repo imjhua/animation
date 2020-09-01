@@ -1,13 +1,27 @@
+
+// window.scrollY: 스크롤 위치
+// window.pageYOffset: 페이지 높이
+// window.innerHeight: 윈도우 전체 크기
+
+      const viewTop = $w.scrollTop(),
+      const viewBottom = viewTop + $w.height(),
+
 (function () {
   window.addEventListener("load", init);
   window.addEventListener("resize", init);
   window.addEventListener("scroll", function () {
-    setCurrentPageInfo();
-    playAnimation();
+    const boxEls = document.querySelector('.box');
+    for (const boxEl of boxEls) {
+      boxEl.addClass('anmiation');
+    }
+    // setCurrentPageInfo();
+    // playAnimation();
   });
 
+  return;
+
   // global variable
-  const PAGE_IDS_FOR_SCROLL = [0, 2, 3];
+  const PAGE_IDS_FOR_SCROLL = [0];
   const HEIGHT_SIZE_X = 5;
   const PAGE_HEIGHT = window.innerHeight * HEIGHT_SIZE_X;
 
@@ -73,51 +87,8 @@
     }
   }
 
-  // const pageObj = {};
   const pageObj = {
     0: [
-      {
-        classSelector: "canvas",
-        animationFrameRange: [0, 1],
-        style: { dir: "001", imageId: [6726, 6726 + 300] },
-      },
-      // {
-      //   classSelector: "canvas",
-      //   animationFrameRange: [0.9, 1],
-      //   style: { opacity: [1, 0] },
-      // },
-      {
-        classSelector: "message-0",
-        animationFrameRange: [0.1, 0.25],
-        style: { opacity: [0, 1], translateY: [0, -20] },
-      },
-      {
-        classSelector: "message-1",
-        animationFrameRange: [0.3, 0.45],
-        style: { opacity: [0, 1], translateY: [0, -20] },
-      },
-      {
-        classSelector: "message-2",
-        animationFrameRange: [0.5, 0.65],
-        style: { opacity: [0, 1], translateY: [0, -20] },
-      },
-      {
-        classSelector: "message-3",
-        animationFrameRange: [0.7, 0.85],
-        style: { opacity: [0, 1], translateY: [0, -20] },
-      },
-    ],
-    2: [
-      {
-        classSelector: "canvas",
-        animationFrameRange: [0, 1],
-        style: { dir: "002", imageId: [7026, 7026 + 960] },
-      },
-      // {
-      //   classSelector: "canvas",
-      //   animationFrameRange: [0.9, 1],
-      //   style: { opacity: [1, 0] },
-      // },
       {
         classSelector: "message-0",
         animationFrameRange: [0.1, 0.25],
@@ -135,12 +106,12 @@
       },
       {
         classSelector: "message-2",
-        animationFrameRange: [0.65, 0.85],
+        animationFrameRange: [0.60, 0.75],
         style: { opacity: [0, 1], translateY: [0, -30] },
       },
       {
         classSelector: "message-2 .pin",
-        animationFrameRange: [0.65, 0.85],
+        animationFrameRange: [0.60, 0.75],
         style: { opacity: [0, 1], scaleY: [50, 100] },
       },
     ],
@@ -221,23 +192,6 @@
             scrollRatioByAnimationRange
           );
           element.style.transform = `scaleY(${scaleY / 100})`;
-        }
-
-        // canvas
-        // IMG_7025
-        if (style.hasOwnProperty("imageId")) {
-          const imageId = Math.round(
-            calculatorScrollRatioValue(
-              style.imageId,
-              scrollRatioByAnimationRange
-            )
-          );
-          const ctx = element.getContext("2d");
-          const img = new Image();
-          img.onload = function () {
-            ctx.drawImage(img, 0, 0);
-          };
-          img.src = `./video/${style.dir}/IMG_${imageId}.JPG`;
         }
       }
     }

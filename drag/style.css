@@ -1,0 +1,16 @@
+.container {
+  border: 1px solid #aaaaaa;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+}
+
+img {
+  width: 150px;
+  height: 150px;
+  cursor: move;
+}
+
+.dragging{
+  opacity: .5;
+}
