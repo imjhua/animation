@@ -30,6 +30,6 @@ img.move.stop {
     transform: translateY(1px);
   }
   to {
-    transform: translateY(-1000px);
+    transform: translateY(-100vh);
   }
 }
