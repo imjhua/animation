@@ -1,0 +1,12 @@
+#walk {
+  width: 184px;
+  height: 325px;
+  background: url("./walk.png") no-repeat 0 0 / cover;
+  animation: walk-ani 1s infinite steps(8);
+}
+
+@keyframes walk-ani {
+  to {
+    background-position: -1472px 0;
+  }
+}
