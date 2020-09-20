@@ -54,8 +54,9 @@ window.addEventListener("scroll", function (e) {
   // 뺴꼼은.. 엘리먼트 시작 전 50 & 시작 후 50
 
   const padding = 10;
-  const startPoint = target.getBoundingClientRect().top - padding;
-  const endPoint = target.getBoundingClientRect().top + padding;
+  const { top } = target.getBoundingClientRect();
+  const startPoint = top - padding;
+  const endPoint = top + padding;
 
   // 같은지만 체크하면 스크롤이 너무 빨리 움직일때 px를 건너 뛸 수 있다.
   // 어느정도 값의 허용치? 범위를 구해놓아야 함.
@@ -67,7 +68,7 @@ window.addEventListener("scroll", function (e) {
     console.log("진입!");
     isIn = true;
 
-    target.classList.add('animation')
+    target.classList.add("animation");
   }
 });
 
