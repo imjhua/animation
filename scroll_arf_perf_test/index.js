@@ -1,41 +1,9 @@
-/*  
-// https://csstriggers.com/
-// https://trendyminds.com/blog/silky-css-minimizing-repaints-jank
-// https://developer.mozilla.org/ko/docs/Web/API/Window/requestAnimationFrame
-// https://medium.com/@paul_irish/requestanimationframe-scheduling-for-nerds-9c57f7438ef4
-// https://m.blog.naver.com/PostView.nhn?blogId=dndlab&logNo=221633637425&proxyReferer=https:%2F%2Fwww.google.com%2F
-// https://blog.eunsatio.io/develop/JavaScript-window.requestAnimationFrame-%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC
-// https://12bme.tistory.com/140
+for (let i = 0; i < 30; i++) {
+  throttleUsingRaf(animationBalls);
+  // animationBalls();
+  // window.requestAnimationFrame(animationBalls);
+}
 
-[requestAnimationFrame] ->  브라우저가 초당 렌더링하는 횟수를 보장
-: 비동기 함수이다. 브라우저가 실행 시기를 결정한다. 스스로 반복해서 호출하지 않는다.
- 스스로를 반복 호출하지 않기 때문에 window.requestAnimationFrame 함수로 다음 함수를 반복하려면, 
- 재귀적으로 window.requestAnimationFrame 함수를 다시 호출해 주어야 한다.
- - setTimeout은 tast queue에 stack 쌓임
- - requestAnimationFrame: animation frames 라는 queue에 stack 쌓임(task보다 먼저 실행됨)
- ------
- [함수 호출]
- 브라우저에게 수행하기를 원하는 애니메이션을 알리고,
- 다음 리페인트가 진행되기 전에 해당 애니메이션을 업데이트하는 함수를 호출한다.
- 따라서 인자는! 리페인트 이전에 실행할 콜백이어야 한다.
- ------
-[스타일 속성 예]
- - repaint: background-color
- - reflow: height
-
- 화면에 새로운 애니메이션을 업데이트할 준비가 될때마다 이 메소드를 호출하는것이 좋습니다. 
- 이는 브라우저가 다음 리페인트를 수행하기전에 호출된 애니메이션 함수를 요청합니다. 
- 콜백의 수는 보통 1초에 60회지만, 일반적으로 대부분의 브라우저에서는 W3C 권장사항에 따라 그 수가 디스플레이 주사율과 일치하게됩니다. 
-*/
-
-// getBoundingClientRect는 브라우저의 리플로 최적화 실행을 중단하고
-// 추가적인 리플로를 발생시키는 것으로 알려진 객체의 속성과 메서드 중 하나이다.
-// 따라서 최적화 대상!
-
-//12bme.tistory.com/140 [길은 가면, 뒤에 있다.]
-// requestAnimationFrame을 사용한 스크롤이벤트 적용
-
-window.addEventListener("scrolll", throttleUsingRaf(scrollEventHandler));
 function throttleUsingRaf(cb) {
   let rAfTimeout = null;
 
@@ -43,16 +11,13 @@ function throttleUsingRaf(cb) {
     if (rAfTimeout) {
       window.cancelAnimationFrame(rAfTimeout);
     }
+    console.log();('======')
     rAfTimeout = window.requestAnimationFrame(function () {
       cb();
     });
   };
 }
-// passive 옵션적용하여 스크롤성능향상
-// 옵션은..
-// https://amati.io/eventlisteneroptions-passive-true/
-// https://developers.google.com/web/fundamentals/performance/rendering?hl=ko
-window.addEventListener("scroll", scrollEventHandler, { passive: true });
+
 function scrollEventHandler() {
   const target = document.querySelector(".tab");
 
@@ -104,6 +69,7 @@ function clearAnimationBalls() {
   list.innerHTML = "";
   count.innerHTML = "0";
 }
+
 function animationBalls() {
   const count = document.getElementById("count");
   count.innerHTML = parseInt(count.textContent) + 1;
