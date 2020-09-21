@@ -33,10 +33,13 @@ div.contents {
 
 div.tab {
   background-color: lime;
+  margin: 0 auto;
   /* transition: 2s; */
   /* transition: background-color 1s linear; */
 }
 
 div.tab.active {
   background-color: #ffd000;
+  font-size: 2em;
+  width: 80%;
 }
