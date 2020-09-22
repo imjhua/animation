@@ -1,8 +1,10 @@
-for (let i = 0; i < 30; i++) {
-  throttleUsingRaf(animationBalls);
-  // animationBalls();
-  // window.requestAnimationFrame(animationBalls);
-}
+// 1초에 한번식 콘솔찍기
+setInterval(function () {
+  const count = document.getElementById("count");
+  if(parseInt(count.textContent) < 30){
+    throttleUsingRaf(animationBalls)();
+  }
+}, 1000);
 
 function throttleUsingRaf(cb) {
   let rAfTimeout = null;
@@ -11,7 +13,6 @@ function throttleUsingRaf(cb) {
     if (rAfTimeout) {
       window.cancelAnimationFrame(rAfTimeout);
     }
-    console.log();('======')
     rAfTimeout = window.requestAnimationFrame(function () {
       cb();
     });
