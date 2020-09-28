@@ -9,9 +9,12 @@
   <script src="./index.ts"></script>
 </head>
 <body>
-  <button style="font-size: 40px" onclick="javascript:window.mart.openShippingPopup()">
-    show popup Click
+  <button style="font-size: 40px" onclick="javascript:openPopup()">
+    show popup Click(opener: IE not supported)
   </button>
-  <h1 id="callback-msg"></h1>
+  <button style="font-size: 40px" onclick="javascript:openPopupByIframe()">
+    show popup Click(by iframe: parent)
+  </button>
+  <script src="./index.js"></script>
 </body>
 </html>
