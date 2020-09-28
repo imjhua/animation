@@ -19,10 +19,10 @@ const openPopup = () => {
   function receiveMessage1(e) {
     console.log("message!");
     popup1.close();
+    window.removeEventListener("message", receiveMessage1);
   }
 
   window.addEventListener("message", receiveMessage1, false);
-  // window.removeEventListener("message", receiveMessage1);
 };
 ////////////////
 
@@ -38,15 +38,15 @@ const openPopupByIframe = () => {
   // Window.parent속성 현재 윈도우 또는 서브 프레임의 상위에 대한 참조이다.
   // 윈도우에 부모가없는 경우 해당 parent속성은 자체에 대한 참조입니다.
   // 윈도우가 넣었을 경우 <iframe>, <object>또는 <frame>, 그 부모 윈도우 매립 요소 창이다.
-  
+
   popup2.document.write(html);
 
   // parent인 경우 반환받은 win
   function receiveMessage2(e) {
     console.log("message!");
     popup2.close();
+    popup2.removeEventListener("message", receiveMessage2);
   }
 
   popup2.addEventListener("message", receiveMessage2, false);
-  // popup2.removeEventListener("message", receiveMessage2);
 };
