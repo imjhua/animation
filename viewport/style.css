@@ -18,7 +18,7 @@ div {
 }
 
 #target.animation {
-  animation: in 3s infinite;
+  animation: in 3s;
 }
 
 @keyframes in {

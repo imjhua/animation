@@ -25,12 +25,12 @@ console.log(
 
 let isIn = false;
 window.addEventListener("scroll", function (e) {
-  console.log(
-    "getBoundingClientRect: ",
-    target.getBoundingClientRect().top,
-    "pageYOffset",
-    window.pageYOffset // 스크롤을 해당 px만큼 움직였다. 스크롤한 정도를 의미
-  );
+  // console.log(
+  //   "getBoundingClientRect: ",
+  //   target.getBoundingClientRect().top,
+  //   "pageYOffset",
+  //   window.pageYOffset // 스크롤을 해당 px만큼 움직였다. 스크롤한 정도를 의미
+  // );
 
   /* 
   뷰포트를 기준으로 타겟엘리먼트가 얼마만큼 떨어져있는가는
@@ -54,15 +54,22 @@ window.addEventListener("scroll", function (e) {
   // 뺴꼼은.. 엘리먼트 시작 전 50 & 시작 후 50
 
   const padding = 10;
-  const { top } = target.getBoundingClientRect();
+  const { bottom, right, left, top } = target.getBoundingClientRect();
   const startPoint = top - padding;
   const endPoint = top + padding;
 
   // 같은지만 체크하면 스크롤이 너무 빨리 움직일때 px를 건너 뛸 수 있다.
   // 어느정도 값의 허용치? 범위를 구해놓아야 함.
+  // const isInViewPort =
+  //   // window.innerHeight === target.getBoundingClientRect().top;
+  //   startPoint < window.innerHeight && window.innerHeight < endPoint;
+
+  // 엘리먼트가 아래있는 경우이다. 위에있는 경우는 다른 조건 필요
   const isInViewPort =
-    // window.innerHeight === target.getBoundingClientRect().top;
-    startPoint < window.innerHeight && window.innerHeight < endPoint;
+    bottom > 0 &&
+    right > 0 &&
+    left < window.innerWidth &&
+    top < window.innerHeight;
 
   if (!isIn && isInViewPort) {
     console.log("진입!");
