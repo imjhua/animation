@@ -1,0 +1,54 @@
+div.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+div.box > div {
+  width: 200px;
+  height: 200px;
+  transition: all 1s ease-out;
+}
+
+
+div.opacity {
+  background-color: #ffce55;
+  opacity: 1;
+}
+
+div.opacity:hover {
+  opacity: 0;
+}
+
+div.visibility {
+  background-color: #4fc0e8;
+  visibility: visible;
+}
+
+div.visibility:hover {
+  visibility: hidden;
+}
+
+
+
+div.bg-img {
+  background: url('../_img/1.jpg');
+  background-size: contain;
+}
+
+div.bg-img:hover {
+  background: url('../_img/3.jpg');
+  background-size: contain;
+}
+
+
+
+div.display {
+  background-color: #ec87bf;
+  display: block;
+}
+
+div.display:hover {
+  display: none;
+}
