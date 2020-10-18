@@ -11,7 +11,6 @@ div.box > div {
   transition: all 1s ease-out;
 }
 
-
 div.opacity {
   background-color: #ffce55;
   opacity: 1;
@@ -30,19 +29,16 @@ div.visibility:hover {
   visibility: hidden;
 }
 
-
-
 div.bg-img {
-  background: url('../_img/1.jpg');
+  /* background: url(../images/img01.jpg) no-repeat center center/cover; */
+  background: url("../_img/1.jpg");
   background-size: contain;
 }
 
 div.bg-img:hover {
-  background: url('../_img/3.jpg');
+  background: url("../_img/3.jpg");
   background-size: contain;
 }
-
-
 
 div.display {
   background-color: #ec87bf;
