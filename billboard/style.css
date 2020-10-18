@@ -1,0 +1,32 @@
+.billboard {
+  background-color: rgb(220, 234, 159);
+  height: 400px;
+  transition: display 0.1s ease-in-out;
+}
+
+.slider-slide {
+  opacity: 1;
+  transition: opacity 0.8s 0.1s ease-in-out;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.slider-slide.hover {
+  opacity: 0;
+  z-index: -1;
+}
+
+.billboard:hover {
+  background-color: rgb(87, 106, 51);
+}
+
+.billboard:hover .slider-slide {
+  opacity: 0;
+  z-index: -1;
+}
+
+.billboard:hover .slider-slide.hover {
+  opacity: 1;
+  z-index: 1;
+}
