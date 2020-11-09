@@ -1,10 +1,20 @@
-.billboard {
-  background-color: rgb(220, 234, 159);
-  height: 400px;
-  transition: display 0.1s ease-in-out;
+body > div{
+  margin: 10px;
 }
 
-.slider-slide {
+img {
+  width: 620px;
+  height: 200px;
+}
+
+.billboard-wrapper {
+  height: 200px;
+  background-color: rgb(220, 234, 159);
+  transition: display 0.1s ease-in-out;
+  position: relative;
+}
+
+.billboard-wrapper .slider-slide {
   opacity: 1;
   transition: opacity 0.8s 0.1s ease-in-out;
   position: absolute;
@@ -12,21 +22,51 @@
   width: 100%;
 }
 
-.slider-slide.hover {
+.billboard-wrapper .slider-slide.hover {
   opacity: 0;
   z-index: -1;
 }
 
-.billboard:hover {
+.billboard-wrapper:hover {
   background-color: rgb(87, 106, 51);
 }
 
-.billboard:hover .slider-slide {
+.billboard-wrapper:hover .slider-slide {
   opacity: 0;
   z-index: -1;
 }
 
-.billboard:hover .slider-slide.hover {
+.billboard-wrapper:hover .slider-slide.hover {
   opacity: 1;
   z-index: 1;
+}
+
+
+
+.billboard-wrapper-slider {
+  height: 200px;
+  position: relative;
+}
+
+.billboard-wrapper-slider .slider-slide {
+  opacity: 1;
+  transition: all 0.8s ease-in-out;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  background-color: rgb(220, 234, 159);
+}
+
+.billboard-wrapper-slider .slider-slide.hover {
+  opacity: 0;
+  background-color: rgb(87, 106, 51);
+}
+
+.billboard-wrapper-slider:hover .slider-slide {
+  opacity: 0;
+}
+
+.billboard-wrapper-slider:hover .slider-slide:hover {
+  display: block;
+  opacity: 1;
 }
