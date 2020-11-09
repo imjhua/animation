@@ -9,6 +9,10 @@ div.box > div {
   width: 200px;
   height: 200px;
   transition: all 1s ease-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 div.opacity {
@@ -27,6 +31,17 @@ div.visibility {
 
 div.visibility:hover {
   visibility: hidden;
+}
+
+div.opacity-visibility {
+  background-color: #967bdc;
+  opacity: 1;
+  visibility: visible;
+}
+
+div.opacity-visibility:hover {
+  opacity: 0;
+  /* visibility: hidden; */
 }
 
 div.bg-img {
