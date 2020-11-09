@@ -1,10 +1,12 @@
-// 드랍 이벤트 호출: draggable(dragstart / drag) -> container(dragover / drop) -> draggable(dragend)
+/* 
+드랍 이벤트 호출순서
+- draggable(dragstart / drag) 
+- container(dragover / drop) 
+- draggable(dragend) 
+*/
 
 const draggable = document.querySelector("#target");
 
-// draggable.addEventListener("drag", function (e) {
-//   console.log("drag?");
-// });
 draggable.addEventListener("dragstart", function (e) {
   console.log("dragstart...");
   e.target.classList.add("dragging");
@@ -13,6 +15,10 @@ draggable.addEventListener("dragstart", function (e) {
 
   e.dataTransfer.setData("id", targetId);
 });
+// draggable.addEventListener("drag", function (e) {
+//   console.log("drag?");
+// });
+
 draggable.addEventListener("dragend", function (e) {
   console.log("dragend...");
   e.target.classList.remove("dragging");
@@ -33,7 +39,7 @@ container.addEventListener("drop", function (e) {
 container.addEventListener("dragover", function (e) {
   // dropover는 드랍영역에 그림자가 보여짐.
   console.log("drag over..!");
-  e.preventDefault(); // 어야만 drop 이벤트가 발새한다.
+  e.preventDefault(); // 어야만 drop 이벤트가 발생한다.
 
   // const draggable = document.querySelector(".dragging");
   // container.appendChild(draggable);

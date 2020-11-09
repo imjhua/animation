@@ -3,6 +3,12 @@
   width: 200px;
   height: 200px;
   padding: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  float: left;
 }
 
 img {
@@ -11,6 +17,6 @@ img {
   cursor: move;
 }
 
-.dragging{
-  opacity: .5;
+.dragging {
+  opacity: 0.5;
 }
