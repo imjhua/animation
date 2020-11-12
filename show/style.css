@@ -45,7 +45,6 @@ div.opacity-visibility:hover {
 }
 
 div.bg-img {
-  /* background: url(../images/img01.jpg) no-repeat center center/cover; */
   background: url("../_img/scenery/1.jpg");
   background-size: contain;
 }
