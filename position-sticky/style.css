@@ -15,7 +15,6 @@ body {
   height: 1400px;
   margin: 0 auto;
 }
-
 dt {
   height: 40px;
   background-color: black;
@@ -49,10 +48,10 @@ dt.fixed {
 }
 
 /* last-of-type는 형재 요소들을 선택한다. */
-dt.fixed:last-of-type + dd {
+dt.fixed:first-of-type + dd {
   /* 
   고정될때 그 공간에 종속되지 않으면서 생기는 사이드 이펙트 방어코드
   빠지는 부분만큼을 padding으로 채워준다.
   */
-  padding-top: 40px;
+  /* padding-top: 40px; */
 }

@@ -22,7 +22,7 @@ function checkViewPort(target, inViewPortCallback, notInViewPortCallback) {
   - top은 작아진다. 상단에 엘리먼트가 있다면 높이만큼 더해서 비교한다.
   */
 
-  if (window.pageYOffset > top + 80) {
+  if (window.pageYOffset > top + 15) {
     inViewPortCallback();
   } else {
     notInViewPortCallback();
