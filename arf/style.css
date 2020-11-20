@@ -1,0 +1,17 @@
+section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+section > .module {
+  background: #eee;
+  display: inline-block;
+  margin: 5px;
+  width: 120px;
+  height: 200px;
+  display: none;
+}
+
+section.show > .module {
+  display: block;
+}
