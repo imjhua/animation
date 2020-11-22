@@ -7,14 +7,19 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
   <body>
-    <div class="tabs" role="tablist">
-      <ul role="tab" aria-label="sample tab">
-        <li role="tab" id="A" aria-controls="tab-A" aria-selected="true">A</li>
-        <li role="tab" id="B" aria-controls="tab-B" aria-selected="false">B</li>
-      </ul>
-      <div role="tabpanel" id="tab-A" aria-labelledby="A">AAA</div>
-      <div role="tabpanel" id="tab-B" aria-labelledby="B">BBB</div>
+    <figure>
+      <img src="../_img/zoo/1.jpg" alt="zoo" />
+      <figcaption>zoo 1</figcaption>
+    </figure>
+    <div class="info"></div>
+
+    <div class="action">
+      <button data-name="minus">-</button>
+      <input type="text" value="1" />
+      <button data-name="plus">+</button>
+      <button data-name="add">담기</button>
     </div>
+
     <script src="./index.js"></script>
   </body>
 </html>
