@@ -20,15 +20,15 @@
 
 .section-1 {
   /* The image used */
-  background-image: url("../images/parallax/1.jpg");
+  background-image: url("../_img/scenery/1.jpg");
 }
 
 .section-2 {
   /* The image used */
-  background-image: url("../images/parallax/2.jpg");
+  background-image: url("../_img/scenery/2.jpg");
 }
 
 .section-3 {
   /* The image used */
-  background-image: url("../images/parallax/3.jpg");
+  background-image: url("../_img/scenery/3.jpg");
 }
