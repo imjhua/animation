@@ -1,0 +1,46 @@
+h2.title {
+  transform: perspective(2500px) rotateX(100deg);
+  transition: transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  backface-visibility: hidden;
+}
+h2.title.show {
+  transform: perspective(2500px) rotateX(0);
+}
+
+h2.title:after {
+  content: "";
+  width: 0;
+  height: 1px;
+  margin-top: 4px;
+  background-color: #4adada;
+  display: block;
+  transition: width 2s ease;
+}
+h2.title.show:after {
+  width: 102px;
+}
+
+section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+section > .module {
+  background: #eee;
+  margin: 5px;
+  width: 120px;
+  height: 200px;
+  visibility: hidden;
+  display: inline-block;
+  transform: translateY(40px);
+  transition: transform 0.5s ease;
+}
+
+/* section > .module {
+  transform: translateY(0);
+} */
+
+section > .module.show {
+  visibility: visible;
+  transform: translateY(0);
+}
