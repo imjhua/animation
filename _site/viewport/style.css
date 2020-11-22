@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+#target {
+  width: 100px;
+  height: 100px;
+  border: 50px solid red;
+  padding: 50px;
+  margin: 50px;
+  margin-top: 650px;
+}
+div {
+  border: 50px solid #eee;
+  padding: 50px;
+  margin: 50px;
+  height: 3000px;
+}
+
+#target.animation {
+  animation: in 3s;
+}
+
+@keyframes in {
+  from {
+    background: yellow;
+  }
+  to {
+    background: blue;
+  }
+}

@@ -1,0 +1,53 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  border: 1px #857d7d solid;
+  padding: 10px;
+  text-align: center;
+}
+
+div.fixed {
+  position: fixed;
+  border: 3px red solid;
+  top: 250px;
+  bottom: 250px;
+  right: 0;
+  left: 0;
+  padding: 0;
+  /* position fixed값은 크기를 지정하면 안됨. */
+  /* width: 100%;
+  height: 100%; */
+}
+section {
+  height: 5000px;
+}
+
+div.contents {
+  height: 1000px;
+}
+
+div.tab {
+  background-color: lime;
+  margin: 0 auto;
+  /* transition: 2s; */
+  /* transition: background-color 1s linear; */
+}
+
+div.tab.active {
+  background-color: #ffd000;
+  font-size: 2em;
+}
+
+div.tab #list {
+  position: relative;
+}
+.ball {
+  position: absolute;
+  border-radius: 100%;
+  opacity: 0.7;
+}

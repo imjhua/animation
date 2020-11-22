@@ -1,0 +1,53 @@
+body {
+  background: linear-gradient(#e66465, #9198e5);
+}
+
+/* body {
+  background: linear-gradient(to right, 
+     red 20%, orange 20% 40%, yellow 40% 60%, green 60% 80%, blue 80%);
+} */
+
+.element {
+  width: 300px;
+  height: 100px;
+  background-image: 
+  /* highlight */
+  linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 80%
+    ),
+      /* linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.5) 40%,
+        rgba(255, 255, 255, 0) 70%
+      ), */
+    linear-gradient(lightgrey 15px, transparent 0);
+  background-position: 5px 10px, 5px 10px;
+  background-size: 100px 15px;
+  background-repeat: no-repeat;
+  animation: shine 1s infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 100% 10px, 5px 10px;
+  }
+}
+
+.elementt {
+  width: 300px;
+  height: 100px;
+
+  background-image: linear-gradient(lightgrey 15px, transparent 0),
+    linear-gradient(lightgrey 15px, transparent 0),
+    linear-gradient(lightgrey 15px, transparent 0);
+
+  /* 좌측에서 5px만큼 y축으로 5px(선굵기-간격[15px-20px])씩 띄움 */
+  background-position: 5px 10px, 5px 30px, 5px 50px;
+  /* gradient 기준으로 width height 만한 사각형을 만든다고 생각 하자*/
+  background-size: 100px 100px, 150px 100px, 150px 100px;
+  background-repeat: repeat-y;
+}

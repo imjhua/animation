@@ -1,0 +1,57 @@
+* {
+  /* 
+  padding을 포함하여 박스크기를 계산하도록 함 
+  기본값은 content-box: 패딩과 보더를 제외한 컨텐츠의 크기
+  이렇게 되면 엘리먼트의 width와 padding을 각각 정의하면
+  전체 box의 크기는 width + padding이 되므로 크기를 계산 및 예측하기 어렵다.
+  */
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  width: 500px;
+  height: 1400px;
+  margin: 0 auto;
+}
+dt {
+  height: 40px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  top: 0;
+  left: 0;
+  margin: 1em 0;
+  /* 
+  static: 기본적으로 문서 안에서 position: static 상태와 같이 일반적인 흐름에 따르지만 
+  fixed: 스크롤 위치가 임계점에 이르면 position: fixed와 같이 박스를 화면에 고정한다.
+  */
+  /* position: sticky; */
+}
+
+dt.fixed {
+  /* 
+  fixed는 부모요소와 관계없이 브라우저의 뷰포트를 기준으로 위치(top 등)가 정해진다.
+  상위요소와 관련이 없다!
+  따라서 스크롤되더라도 화면에서 사라지지 않고 항상 같은 곳에 위치한다.
+  블럭 요소인 경우, width는 content에 맞게 변화되므로 적절한 width를 지정하여야 한다!
+  */
+  position: fixed;
+  margin: 0;
+  top: 0;
+  width: 500px;
+  /* 가운데 정렬 */
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+/* last-of-type는 형재 요소들을 선택한다. */
+dt.fixed:first-of-type + dd {
+  /* 
+  고정될때 그 공간에 종속되지 않으면서 생기는 사이드 이펙트 방어코드
+  빠지는 부분만큼을 padding으로 채워준다.
+  */
+  /* padding-top: 40px; */
+}

@@ -1,0 +1,34 @@
+/*
+- font: https://www.typewolf.com/ 
+*/
+
+.parallax {
+  opacity: 0.65;
+
+  /* Set a specific height */
+  min-height: 500px;
+  
+  /* 만약 %로 높이를 조정하려면 컨테이너(감싸는 부모 & body & html) 에 100% 높이를 준다. */
+  /* height: 50%; */
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.section-1 {
+  /* The image used */
+  background-image: url("../images/parallax/1.jpg");
+}
+
+.section-2 {
+  /* The image used */
+  background-image: url("../images/parallax/2.jpg");
+}
+
+.section-3 {
+  /* The image used */
+  background-image: url("../images/parallax/3.jpg");
+}

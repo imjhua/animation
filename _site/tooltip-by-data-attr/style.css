@@ -1,0 +1,48 @@
+span[data-descr] {
+  position: relative;
+  text-decoration: underline;
+  color: #00f;
+  cursor: help;
+}
+
+span[data-descr]:hover::after,
+span[data-descr]:focus::after {
+  color: #000000;
+  min-width: 200px;
+  content: attr(data-descr);
+  border: 1px #aaaaaa solid;
+  background-color: #ffffcc;
+  border-radius: 10px;
+  padding: 12px;
+  position: absolute;
+  left: 0;
+  top: 24px;
+}
+
+ul {
+  margin: 10px 0 0;
+}
+
+li {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+li:after {
+  position: absolute;
+  background: black;
+  border: 1px solid #eee;
+  content: "Data ID: " attr(data-id);
+  bottom: -22px;
+  color: white;
+  padding: 2px;
+  opacity: 0;
+  transition: 0.5s opacity;
+  /* z-index를 안주면 투명한 글씨가 됨. 이유는? */
+  z-index: 1;
+}
+
+li:hover:after,
+li:focus:after {
+  opacity: 1;
+}

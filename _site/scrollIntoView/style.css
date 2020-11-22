@@ -1,0 +1,26 @@
+body {
+  overflow: hidden;
+}
+
+div#wrapper {
+  height: 250px;
+  width: 250px;
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  background: green;
+}
+
+div#wrapper > div#content {
+  margin: 500px;
+  height: 800px;
+  width: 2000px;
+  background-color: coral;
+}
+
+div#wrapper > div#content > div#inner {
+  margin: 100px;
+  height: 200px;
+  width: 1200px;
+  background-color: pink;
+}

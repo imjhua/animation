@@ -1,0 +1,9 @@
+body{
+  height: 300vh;
+  font-size: 4em;
+}
+.ball {
+  position: absolute;
+  border-radius: 100%;
+  opacity: 0.7;
+}

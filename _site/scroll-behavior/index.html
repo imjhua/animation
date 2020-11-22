@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
+    <!-- input은 그림자? 일뿐 실제 화면에는 label이 보인다. -->
+    <input type="checkbox" id="on" />
+    <label for="on" class="checkbox"></label>
+    <nav>
+        <a href="#html">HTML</a>   <a href="#css">CSS</a>   <a href="#js">JS</a>
+    </nav>
+    <!-- 
+      main영역의 스크롤 관련 css는 셋트(IE미지원)
+       - overflow-y: scroll;
+       - scroll-behavior: smooth;
+    -->
+    <main>
+      <section id="html">HTML</section>
+      <section id="css">CSS</section>
+      <section id="js">JS</section>
+    </main>
+    <script src="./index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+div.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+div.box > div {
+  width: 150px;
+  height: 150px;
+  transition: all 1s ease-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.opacity {
+  background-color: #ffce55;
+  opacity: 1;
+}
+
+div.opacity:hover {
+  opacity: 0;
+}
+
+div.visibility {
+  background-color: #4fc0e8;
+  visibility: visible;
+}
+
+div.visibility:hover {
+  visibility: hidden;
+}
+
+div.opacity-visibility {
+  background-color: #967bdc;
+  opacity: 1;
+  visibility: visible;
+}
+
+div.opacity-visibility:hover {
+  opacity: 0;
+  visibility: hidden;
+}
+
+div.bg-img {
+  background: url("../_img/scenery/1.jpg");
+  background-size: contain;
+}
+
+div.bg-img:hover {
+  background: url("../_img/scenery/3.jpg");
+  background-size: contain;
+}
+
+div.display {
+  background-color: #ec87bf;
+  display: block;
+}
+
+div.display:hover {
+  display: none;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
+    <button>접근성(하위요소 제어 가능한지 테스트)</button>
+    <div class="box">
+      <div class="bg-img">bg-img<button>button</button></div>
+      <div class="opacity">opacity(서서히 사라짐) <button>button</button></div>
+      <div class="visibility">
+        visibility(트랜지션 지속시간 후 사라짐)<button>button</button>
+      </div>
+      <div class="opacity-visibility">
+        opacity & visibility(이유는? 요소의 방해를 받지 않기 위함)<button>
+          button
+        </button>
+      </div>
+      <div class="display">display(바로 사라짐)<button>button</button></div>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
