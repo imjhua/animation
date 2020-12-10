@@ -43,9 +43,10 @@ function throttleUsingRaf(cb) {
     if (rAfTimeout) {
       window.cancelAnimationFrame(rAfTimeout);
     }
-    rAfTimeout = window.requestAnimationFrame(function () {
-      cb();
-    });
+    rAfTimeout = window.requestAnimationFrame(cb);
+    // rAfTimeout = window.requestAnimationFrame(function () {
+    //   cb();
+    // });
   };
 }
 // passive 옵션적용하여 스크롤성능향상
