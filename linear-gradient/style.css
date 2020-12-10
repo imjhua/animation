@@ -168,3 +168,29 @@ div.flexbox > div > div {
   /* 첫번째값은 배경 길이 / 두번째값은 배경 높이 / 높이가 모두 같아야 함*/
   background-size: 50% 120px, 80% 120px, 80% 120px;
 }
+
+.multi-line-shine {
+  background: #fff;
+  height: 345px !important;
+  /* shine은 맨 앞에 위치한다. 이유는? 배경이 중첩되면서 뒤로 쌓임.  */
+  background-image: linear-gradient(
+      100deg,
+      transparent,
+      rgba(255, 255, 255, 0.5) 40%,
+      transparent 70%
+    ),
+    linear-gradient(lightgrey 20px, transparent 0),
+    linear-gradient(lightgrey 20px, transparent 0),
+    linear-gradient(lightgrey 20px, transparent 0);
+
+  background-position: -100% 0, 5px 10px, 5px 40px, 5px 70px;
+  background-repeat: repeat-y;
+  background-size: 30% 120px, 50% 120px, 80% 120px, 80% 120px;
+  animation: multi-line-shine 2s infinite;
+}
+
+@keyframes multi-line-shine {
+  to {
+    background-position: 200% 0, 5px 10px, 5px 40px, 5px 70px;
+  }
+}
