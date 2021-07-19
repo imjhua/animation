@@ -1,10 +1,3 @@
-// URL: /test 담당
-function postMsg() {
-  console.log('postMsg!')
-  if (window.opener) window.opener.postMessage('test (by opener)', '*')
-  if (window.parent) window.parent.postMessage('test (by parent)', '*')
-}
-
 var nodes = document.querySelector('ul#ul1')
 
 for (var k = 0; k < nodes.children.length; k++) {
