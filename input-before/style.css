@@ -1,7 +1,0 @@
-input {
-  display: block;
-  margin-bottom: 30px;
-}
-input::before {
-  content: attr(type);
-}
